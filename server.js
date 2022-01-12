@@ -20,16 +20,23 @@ let transporter = nodemailer.createTransport({
 
 
 
-
 const app = express();
 const DataBase = require('./dataBase'); // required the exported database class 
 // making an object of Database
 const db = new DataBase(); // new instance/object of Database 
 
 app.use(cors()); // cors allows us to make api calls out of range of our server
-app.use(bodyParser.json()); // json is the format of file when we send data for api 
-app.use(bodyParser.urlencoded({ extended: false }));
+//app.use(bodyParser.json()); // json is the format of file when we send data for api 
+//app.use(bodyParser.urlencoded({ extended: false }));
 
+
+app.use(bodyParser.json({
+    limit: '50mb'
+}));
+app.use(bodyParser.urlencoded({
+    limit: '50mb',
+    extended: true
+}));
 
 app.post('/newtask', (req, res) => {
 
@@ -110,16 +117,22 @@ app.post('/sendEmail', (req, res) => {
         from: 'ghufrandali1999@gmail.com',
         to: neededInfo.email,
         subject: neededInfo.subject,
-        text: neededInfo.text
+        text: neededInfo.text,
+        attachments: [
+            { path: neededInfo.imgUrl }
+        ]
     }
 
+    console.log(neededInfo.imgUrl);
     transporter.sendMail(mailOptions, function(err, data) {
         if (err) {
             console.log("error");
         } else {
             console.log("it is working");
+            res.send("done");
         }
     })
+
 
 
 
