@@ -1,0 +1,74 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Task List</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col sizeSm="6">
+                <ion-list inset="true" lines="none">
+                    <ion-list-header>
+                        <ion-label>To do List :</ion-label>
+                    </ion-list-header>
+                    <div *ngFor="let task of tasks">
+                        <ion-item class="ion-float-right " lines="none">
+                            <ion-icon name="ellipse" class="iconRed" [ngStyle]=" (task.completed && { 'color':'blue'}) || (!task.completed && { 'color':'red'})"></ion-icon>
+                        </ion-item>
+                        <ion-card>
+
+                            <ion-item lines="none" class="ion-wrap">
+                                <ion-textarea type="text" cols="30" readonly="true" value="{{task.details}}" class="ion-margin-start">
+
+                                </ion-textarea>
+
+                                <ion-item lines="none" slot="end">
+                                    <ion-button fill="clear" routerLink="/add-task/{{task._id}}" disabled="{{task.completed}}">
+                                        <ion-icon name="create-outline" class="ion-no-margin" slot="end"></ion-icon>
+                                    </ion-button>
+                                    <ion-button fill="clear" (click)="deleteTask(task._id)">
+                                        <ion-icon name="trash-outline" class="ion-no-margin" slot="end"></ion-icon>
+                                    </ion-button>
+                                    <ion-button fill="clear" disabled="{{task.completed}}" (click)="completeTask(task._id)">
+                                        <ion-icon name="checkmark-outline" class="ion-no-margin" slot="end"></ion-icon>
+                                    </ion-button>
+                                </ion-item>
+
+                            </ion-item>
+                            <ion-item>
+                                <ion-progress-bar value="{{task.progress.progressValue/100}}" slot="end"></ion-progress-bar>
+                            </ion-item>
+
+
+                        </ion-card>
+                    </div>
+
+                    <ion-item button="true" (click)="presentModal()">
+
+                        <ion-icon name="bar-chart" class="ion-margin-end"></ion-icon>
+                        <ion-label>progress in your Tasks</ion-label>
+
+                    </ion-item>
+                    <ion-item routerLink="/add-task">
+
+                        <ion-icon name="add-circle-outline" class="ion-margin-end"></ion-icon>
+                        <ion-label>Add New Task</ion-label>
+
+
+
+                    </ion-item>
+
+                </ion-list>
+
+            </ion-col>
+            <!-- <ion-col [sizeMd]="6" class="ion-margin">
+                <ion-item>
+                    <canvas id="baseChart"></canvas>
+                </ion-item>
+            </ion-col> -->
+        </ion-row>
+    </ion-grid>
+
+
+</ion-content>

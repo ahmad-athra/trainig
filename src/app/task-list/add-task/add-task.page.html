@@ -1,0 +1,47 @@
+<ion-header>
+    <ion-toolbar>
+
+        <ion-button fill="clear" routerLink="/task-list">
+            <ion-icon name="arrow-back-circle-outline" class="ion-margin-end"></ion-icon>
+            Back To List
+        </ion-button>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <form (ngSubmit)="submitTask()">
+        <ion-grid>
+            <ion-row>
+                <!-- <ion-col sizeMd="3">
+                    <ion-button color="light" routerLink="/task-list" fill="solid">
+                        <ion-icon name="arrow-back-circle-outline" class="ion-margin-end"></ion-icon>
+                        Back to List
+                    </ion-button>
+                </ion-col> -->
+
+
+                <ion-col sizeMd="6">
+                    <ion-card>
+                        <ion-item lines="none">
+                            <ion-label position="floating">Task details: </ion-label>
+                            <ion-textarea type="text" value={{wantedTask.details}} (ionChange)="nameChange($event)" autoGrow="true" cols="30" color="Shade" rows="2">
+
+                            </ion-textarea>
+                            <ion-button lines="none" type="submit" routerLink="/task-list" class="ion-margin" slot="end">
+                                <ion-icon name="checkmark-outline"></ion-icon>
+                                Submit
+                            </ion-button>
+                        </ion-item>
+                        <ion-item>
+                            <ion-range color="dark" [pin]="true" value="{{wantedTask.progress.progressValue}}" (ionChange)="progressChange($event)"></ion-range>
+                        </ion-item>
+                    </ion-card>
+                </ion-col>
+
+            </ion-row>
+
+
+        </ion-grid>
+    </form>
+</ion-content>
